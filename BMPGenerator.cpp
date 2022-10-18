@@ -3,7 +3,7 @@
 #include <fstream>
 #include <random>
 #include <cmath>
-#include "C:/Users/mario/CppStuff/Graphing/gregstring.h"
+#include "gregstring.h"
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -11,12 +11,12 @@
 #endif
 
 #pragma pack(push, 1)
-
 typedef struct {
     unsigned char b;
     unsigned char g;
     unsigned char r;
 } colour;
+#pragma pack(pop)
 
 std::ostream &operator<<(std::ostream &out, const colour &col) {
     return out << "R: " << +col.r << ", G: " << +col.g << ", B: " << +col.b;
@@ -118,8 +118,8 @@ int main(int argc, char **argv) {
         return -1;
     }
 #else
-    struct stat64 buff{};
-    if (stat64(*(argv + 1), &buff) == -1) {
+    struct stat buff{};
+    if (stat(*(argv + 1), &buff) == -1) {
         std::cerr << "Specified file does not exist or a reading error occurred.\n";
         return -1;
     }
@@ -308,4 +308,3 @@ int main(int argc, char **argv) {
     std::cout << "Total size occupied on disk: " << total_size << " bytes\n";
     return 0;
 }
-#pragma pack(pop)
